@@ -15,7 +15,7 @@ PREDEFINED_USERS = {
     'sina_salary': 'password3',
     'sina_faraji': 'password4',
     'arash_taghie': 'password5',
-    'arash_ebrahimy': 'passwprd6',
+    'arash_ebrahimy': 'password6',
     'mohrez': 'password7',
 }
 
