@@ -16,7 +16,7 @@ PREDEFINED_USERS = {
     'sina_faraji': 'password4',
     'arash_taghie': 'password5',
     'arash_ebrahimy':'passwprd6',
-    'mohrez':'rajabi1234'
+    'mohrez':'password7'
 }
 
 def get_db_connection():
