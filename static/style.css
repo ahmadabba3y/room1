@@ -1,0 +1,32 @@
+body {
+    font-family: Tahoma, sans-serif;
+    direction: rtl;
+    text-align: right;
+    padding: 15px;
+    background-color: #f9f9f9;
+    line-height: 1.6;
+}
+
+/* بهبود فرم‌ها و دکمه‌ها */
+input, button {
+    width: 100% !important;
+    padding: 12px !important;
+    margin: 10px 0 !important;
+    border-radius: 5px !important;
+}
+
+/* لینک‌ها */
+a {
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+/* رسپانسیو برای موبایل */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .card {
+        margin: 10px 0;
+    }
+}
