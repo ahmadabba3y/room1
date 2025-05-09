@@ -24,38 +24,11 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-# def init_db():
-#     conn = get_db_connection()
-#     c = conn.cursor()
-    
-#     # ایجاد جداول
-#     c.execute('''CREATE TABLE IF NOT EXISTS users (
-#         id INTEGER PRIMARY KEY AUTOINCREMENT,
-#         username TEXT UNIQUE,
-#         password TEXT
-#     )''')
-#     c.execute('''CREATE TABLE IF NOT EXISTS login_logs (
-#         id INTEGER PRIMARY KEY AUTOINCREMENT,
-#         username TEXT,
-#         login_time TEXT
-#     )''')
-    
-#     # اضافه کردن کاربران از پیش تعریف شده به دیتابیس
-#     for username, password in PREDEFINED_USERS.items():
-#         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-#         try:
-#             c.execute('INSERT INTO users (username, password) VALUES (?, ?)', 
-#                     (username, hashed_password))
-#         except sqlite3.IntegrityError:
-#             pass  # اگر کاربر از قبل وجود داشت، خطا نده
-    
-#     conn.commit()
-#     conn.close()
 def init_db():
     conn = get_db_connection()
     c = conn.cursor()
     
-    # ایجاد جداول اگر وجود نداشته باشند
+    # ایجاد جداول
     c.execute('''CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT UNIQUE,
@@ -67,21 +40,17 @@ def init_db():
         login_time TEXT
     )''')
     
-    # بررسی و افزودن فقط کاربران جدید
+    # اضافه کردن کاربران از پیش تعریف شده به دیتابیس
     for username, password in PREDEFINED_USERS.items():
-        existing_user = c.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
-        if not existing_user:
-            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        try:
             c.execute('INSERT INTO users (username, password) VALUES (?, ?)', 
-                      (username, hashed_password))
+                    (username, hashed_password))
+        except sqlite3.IntegrityError:
+            pass  # اگر کاربر از قبل وجود داشت، خطا نده
     
     conn.commit()
     conn.close()
-
-
-
-
-
 
 # دکوراتور برای بررسی دسترسی مدیر
 def admin_required(f):
